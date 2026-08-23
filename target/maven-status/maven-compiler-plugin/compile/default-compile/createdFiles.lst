@@ -1,9 +1,0 @@
-com\cepheid\training\order\ValidationService.class
-com\cepheid\training\order\OrderStatus.class
-com\cepheid\training\order\OrderService.class
-com\cepheid\training\order\OrderLine.class
-com\cepheid\training\order\Customer.class
-com\cepheid\training\order\Order.class
-com\cepheid\training\order\Product.class
-com\cepheid\training\DiagnosticWorkflowService.class
-com\cepheid\training\order\OrderRepository.class
