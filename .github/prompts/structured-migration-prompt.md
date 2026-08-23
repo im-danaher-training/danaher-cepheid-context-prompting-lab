@@ -1,4 +1,4 @@
-﻿# Structured prompt: migration scenario
+# Structured prompt: migration scenario
 
 Use this prompt template with Copilot Chat when asking for a migration change:
 

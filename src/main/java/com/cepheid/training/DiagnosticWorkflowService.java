@@ -1,4 +1,4 @@
-﻿package com.cepheid.training;
+package com.cepheid.training;
 
 public class DiagnosticWorkflowService {
     public String getStatus() {

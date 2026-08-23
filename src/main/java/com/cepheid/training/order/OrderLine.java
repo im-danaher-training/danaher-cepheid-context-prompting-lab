@@ -1,4 +1,4 @@
-﻿package com.cepheid.training.order;
+package com.cepheid.training.order;
 
 public class OrderLine {
     private final Product product;

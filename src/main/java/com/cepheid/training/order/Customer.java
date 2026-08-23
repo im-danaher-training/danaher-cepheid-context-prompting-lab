@@ -1,4 +1,4 @@
-﻿package com.cepheid.training.order;
+package com.cepheid.training.order;
 
 public class Customer {
     private final String customerId;

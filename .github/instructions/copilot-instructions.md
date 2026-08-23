@@ -1,4 +1,4 @@
-﻿# Copilot instructions
+# Copilot instructions
 
 - This is an IntelliJ IDEA + Maven + Java 17 training repository for a Danaher/Cepheid workshop.
 - All business data is fictional training data (diagnostic/order-management scenarios). Never introduce real patient, customer, or production data.

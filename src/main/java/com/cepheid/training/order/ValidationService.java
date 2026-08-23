@@ -1,4 +1,4 @@
-﻿package com.cepheid.training.order;
+package com.cepheid.training.order;
 
 // NOTE: Requirements below are intentionally left somewhat ambiguous. Participants
 // should use Copilot to clarify assumptions before extending this class.

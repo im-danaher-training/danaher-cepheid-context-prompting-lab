@@ -1,4 +1,4 @@
-﻿# Context Engineering & Structured Prompting Lab
+# Context Engineering & Structured Prompting Lab
 
 ## Objective
 Learn to use GitHub Copilot inside **IntelliJ IDEA** to complete a realistic Danaher/Cepheid engineering task.

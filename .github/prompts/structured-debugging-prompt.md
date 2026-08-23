@@ -1,4 +1,4 @@
-﻿# Structured prompt: debugging scenario
+# Structured prompt: debugging scenario
 
 Use this prompt template with Copilot Chat when investigating a defect:
 
