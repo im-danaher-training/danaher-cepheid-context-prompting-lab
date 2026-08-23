@@ -13,6 +13,14 @@ Learn to use GitHub Copilot inside **IntelliJ IDEA** to complete a realistic Dan
 - GitHub Copilot and GitHub Copilot Chat plugins enabled in IntelliJ
 - Git
 
+Before running Maven, make sure Java is installed and `JAVA_HOME` is set to your JDK directory and added to `PATH`.
+On Windows PowerShell, this is typically:
+
+```powershell
+$env:JAVA_HOME = 'C:\Program Files\Microsoft\jdk-17.0.20.8-hotspot'
+$env:PATH = "$env:JAVA_HOME\bin;$env:PATH"
+```
+
 ## IntelliJ Setup
 1. Open IntelliJ IDEA and choose **File > Open**, then select this repository folder.
 2. Trust the project when prompted and let IntelliJ auto-import the Maven project.
@@ -56,6 +64,8 @@ Run from the IntelliJ **Terminal** tab (Alt+F12) or the Maven tool window:
 ```bash
 mvn test
 ```
+
+If Maven reports `JAVA_HOME is not defined correctly`, set the JDK first as shown in the prerequisites section, then rerun the command.
 
 ## Expected Result
 You can articulate the architecture, produce a migration plan using structured prompting, and show a measurable improvement from adding repository instructions.
