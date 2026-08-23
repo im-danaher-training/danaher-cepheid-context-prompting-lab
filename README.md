@@ -1,7 +1,7 @@
 ﻿# danaher-cepheid-context-prompting-lab
 
 ## Objective
-This lab is designed for a Danaher/Cepheid Copilot workshop using IntelliJ IDEA as the primary IDE.
+This lab is built for the Danaher/Cepheid GitHub Copilot workshop and is optimized for IntelliJ IDEA.
 
 ## Duration
 40-45 minutes
@@ -9,12 +9,12 @@ This lab is designed for a Danaher/Cepheid Copilot workshop using IntelliJ IDEA 
 ## IntelliJ-first workflow
 Participants should use IntelliJ IDEA throughout the exercise.
 
-1. Open the repository root in IntelliJ using File > Open.
+1. Open the repository in IntelliJ using File > Open.
 2. Allow Maven import when IntelliJ prompts.
-3. Use the Maven tool window for clean test and package operations.
-4. Run tests from the editor using the green triangle or Ctrl+Shift+F10.
-5. Use GitHub Copilot Chat with the current file and project context open.
-6. Keep the scope small, validate often, and review AI-generated changes before accepting them.
+3. Use the Maven tool window for clean, 	est, and package tasks.
+4. Run tests directly from the editor using the green triangle or Ctrl+Shift+F10.
+5. Use GitHub Copilot Chat with the active file and project context loaded.
+6. Review AI-generated changes before accepting them.
 
 ## Prerequisites
 - IntelliJ IDEA
@@ -24,32 +24,32 @@ Participants should use IntelliJ IDEA throughout the exercise.
 - Git
 
 ## Scenario
-This project uses fictional diagnostic and order-management scenarios that resemble the healthcare technology domain without using production data or real patient information.
+This repository uses fictional diagnostic and healthcare-technology scenarios inspired by Cepheid workflows. All data is sample-only and contains no real patient or production information.
 
 ## Starting point
-The codebase is intentionally small and realistic, with the relevant defect or learning objective already present. The participant uses Copilot to understand, fix, or improve it while following the lab instructions.
+The project is intentionally compact but realistic. The participant uses Copilot to explore, diagnose, fix, or improve the code while maintaining a focused learning objective.
 
 ## Hands-on tasks
-1. Open the repo in IntelliJ and inspect the project layout.
+1. Open the project in IntelliJ and inspect the structure.
 2. Ask Copilot to explain the architecture or issue in context.
-3. Apply the requested change or refactor.
-4. Add or improve tests relevant to the objective.
+3. Apply the requested code change or refactor.
+4. Add or improve the relevant tests.
 5. Run validation and confirm the expected behavior.
 
 ## Validation
-Run from the IntelliJ terminal:
+Run the following from the IntelliJ terminal:
 
 `ash
 mvn test
 `
 
 ## Expected result
-The application compiles, tests pass, and the participant has completed the learning objective for this lab.
+The repository compiles, tests pass, and the participant completes the intended lab outcome.
 
 ## Troubleshooting
-- If Maven import fails, use Reload All Maven Projects in IntelliJ.
-- If Java is not recognized, set the JDK in Project Structure.
-- If Copilot output is weak, open the specific file and ask a more direct prompt with project context.
+- If Maven import fails, choose Reload All Maven Projects in IntelliJ.
+- If Java version errors appear, set the JDK in Project Structure.
+- If Copilot suggestions feel generic, open the exact file and ask a more direct project-aware question.
 
 ## Optional challenge
-Enhance the solution with one additional validation case or small quality improvement while keeping the change targeted.
+Add one additional validation scenario or a small quality improvement that keeps the code targeted to the learning objective.

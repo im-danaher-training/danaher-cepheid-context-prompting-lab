@@ -1,1 +1,1 @@
-﻿# Copilot instructions\n\nUse small, test-backed changes. Keep the lab focused on the intended learning objective and prefer IntelliJ-aware workflows.\n
+﻿# Copilot instructions\n\nUse the smallest safe change. Keep the lab focused and IntelliJ-aware. Validate with Maven before accepting output.\n
