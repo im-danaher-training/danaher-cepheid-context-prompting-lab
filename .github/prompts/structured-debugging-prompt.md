@@ -3,7 +3,7 @@
 Use this prompt template with Copilot Chat when investigating a defect:
 
 ```
-Role: Java maintainer debugging com.cepheid.training.order
+Role: Senior Java Developer debugging com.cepheid.training.order
 Context: <paste the failing test name and stack trace>
 Observed behavior: <what actually happens>
 Expected behavior: <what should happen>

@@ -37,7 +37,7 @@ The `com.cepheid.training.order` package contains `Customer`, `Product`, `Order`
 ## Hands-on Tasks
 1. Open the repository in IntelliJ and ask Copilot Chat to explain the overall architecture of the `order` package. Sample prompt:
    ```
-   Role: Senior Java engineer onboarding onto this codebase
+   Role: Senior Java Developer onboarding onto this codebase
    Context: com.cepheid.training.order package (Customer, Product, Order, OrderLine,
    ValidationService, OrderRepository, OrderService)
    Task: Explain the overall architecture — each class's responsibility and how they
@@ -55,7 +55,7 @@ The `com.cepheid.training.order` package contains `Customer`, `Product`, `Order`
    ```
 2. Paste this migration prompt into IntelliJ's Copilot Chat window (also saved at `.github/prompts/structured-migration-prompt.md`):
    ```
-   Role: Java maintainer of com.cepheid.training.order
+   Role: Senior Java Developer maintaining com.cepheid.training.order
    Context: com.cepheid.training.order package models a diagnostic order workflow
    Task: Add support for partial order fulfillment
    Constraints:
@@ -66,7 +66,7 @@ The `com.cepheid.training.order` package contains `Customer`, `Product`, `Order`
    ```
 3. Paste this debugging prompt on the failing scenario you construct (an order with a zero-quantity line), also saved at `.github/prompts/structured-debugging-prompt.md`:
    ```
-   Role: Java maintainer debugging com.cepheid.training.order
+   Role: Senior Java Developer debugging com.cepheid.training.order
    Context: <paste the failing test name and stack trace>
    Observed behavior: <what actually happens>
    Expected behavior: <what should happen>
@@ -78,7 +78,7 @@ The `com.cepheid.training.order` package contains `Customer`, `Product`, `Order`
    ```
    Filled-in example (copy, adapt, and paste this if you don't want to construct your own failing test):
    ```
-   Role: Java maintainer debugging com.cepheid.training.order
+   Role: Senior Java Developer debugging com.cepheid.training.order
    Context: rejectsZeroQuantityLine (OrderServiceTest) — order = new Order("ORD-3", customer,
    List.of(new OrderLine(product, 0))); assertEquals(OrderStatus.REJECTED, result.getStatus());
    Observed behavior: The order is unexpectedly REJECTED even though the product has stock.
@@ -92,7 +92,7 @@ The `com.cepheid.training.order` package contains `Customer`, `Product`, `Order`
    ```
 4. Create or refine `.github/instructions/copilot-instructions.md` with one additional project-specific rule you find useful. Sample prompt to draft the rule:
    ```
-   Role: Codebase maintainer authoring Copilot guardrails
+   Role: Senior Java Developer authoring Copilot guardrails
    Context: .github/instructions/copilot-instructions.md governs Copilot's behavior
    in this repo
    Task: Propose one additional project-specific rule based on a mistake Copilot
@@ -141,7 +141,7 @@ Enterprise teams reuse Copilot customization instead of re-typing context every 
 
 **Quick prompt (token-efficient migration ask):**
 ```
-Role: Java maintainer of com.cepheid.training.order
+Role: Senior Java Developer maintaining com.cepheid.training.order
 Task: Plan support for partial order fulfillment
 Constraints: Keep public signatures; add JUnit 5 tests; do not touch unrelated classes
 Output: 3-step plan, no code yet
@@ -157,7 +157,7 @@ A custom agent is a Markdown file with a `name`/`description` header and a plain
 2. Right-click the new `agents` folder > **New > File**, name it exactly `order-migration-agent.agent.md`.
 3. Use the sample prompt below in Copilot Chat to have it draft the file's content — review the output, then paste it into the empty file yourself and save (Ctrl+S). Don't just copy a finished file; the point of this exercise is to draft, review, and adjust the persona and fixed steps yourself.
    ```
-   Role: Prompt engineer designing a GitHub Copilot custom agent
+   Role: Senior Java Developer designing a GitHub Copilot custom agent
    Context: .github/agents/order-migration-agent.agent.md does not exist yet
    Task: Draft the agent definition for a persona that plans safe, incremental
    changes to com.cepheid.training.order
@@ -185,7 +185,7 @@ A skill is a folder containing a `SKILL.md` file with a `name`/`description` hea
 3. Inside `structured-prompting`, create a file named exactly `SKILL.md`.
 4. Use the sample prompt below in Copilot Chat to have it draft the file's content — review the output, then paste it into the empty file yourself and save. Adjust the wording so it genuinely reflects the Role/Task/Constraints/Output convention you want enforced, rather than accepting the first draft verbatim.
    ```
-   Role: Prompt engineer documenting a reusable Copilot skill
+   Role: Senior Java Developer documenting a reusable Copilot skill
    Context: .github/skills/structured-prompting/SKILL.md does not exist yet
    Task: Write SKILL.md describing when to use short Role/Task/Constraints/Output
    prompts in this repo
@@ -196,7 +196,7 @@ A skill is a folder containing a `SKILL.md` file with a `name`/`description` hea
 5. The file needs a YAML frontmatter block with `name` and `description` (the `description` is what Copilot matches against your prompts to decide when to apply the skill), followed by the concrete conventions and one worked example — verify Copilot's draft includes all three before saving.
 6. **How to use it:** Skills are picked up automatically — Copilot scans `.github/skills/` and applies a skill when your prompt matches its `description`. You don't select it manually; just ask a matching question in Copilot Chat, for example:
    ```
-   Role: Java maintainer of com.cepheid.training.order
+   Role: Senior Java Developer maintaining com.cepheid.training.order
    Task: Using the structured-prompting skill, plan the partial-fulfillment
    change to OrderService
    Constraints: Follow the skill's Role/Task/Constraints/Output convention
@@ -209,7 +209,7 @@ A skill is a folder containing a `SKILL.md` file with a `name`/`description` hea
 Summarize build/test commands and where the `.github/` customization files live, for cross-tool agent compatibility (Copilot CLI and other agentic tools read this file).
 - Sample prompt to draft it:
   ```
-  Role: Prompt engineer documenting cross-tool agent context
+  Role: Senior Java Developer documenting cross-tool agent context
   Context: Root AGENTS.md does not exist yet; this project builds with Maven
   and JDK 17
   Task: Generate AGENTS.md summarizing the build/test commands and where the

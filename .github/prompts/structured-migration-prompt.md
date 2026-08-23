@@ -3,7 +3,7 @@
 Use this prompt template with Copilot Chat when asking for a migration change:
 
 ```
-Role: Java maintainer of com.cepheid.training.order
+Role: Senior Java Developer maintaining com.cepheid.training.order
 Context: com.cepheid.training.order package models a diagnostic order workflow.
 Task: <describe the target state, e.g. "add support for partial order fulfillment">
 Constraints:
