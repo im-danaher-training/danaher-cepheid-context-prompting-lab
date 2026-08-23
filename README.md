@@ -148,102 +148,113 @@ Output: 3-step plan, no code yet
 ```
 
 **Step-by-step: create these yourself (not provided)**
-1. Custom agent - create `.github/agents/order-migration-agent.md`:
-   - **File location and format:** Repository-level custom agents live at `.github/agents/AGENT-NAME.md`. The file is Markdown with YAML frontmatter (`name`, `description`, optional `tools`), followed by a plain-text prompt body that defines the agent's persona and fixed behavior.
-   - Persona: a persona that plans safe, incremental changes to the order package.
-   - Before writing the file, design its fixed step sequence and any constraints on paper first.
-   - Test it on one small, low-risk task before relying on it for the full lab task.
-   - Sample prompt to draft it:
-     ```
-     Role: Prompt engineer designing a GitHub Copilot custom agent
-     Context: .github/agents/order-migration-agent.md does not exist yet
-     Task: Draft the agent definition for a persona that plans safe, incremental
-     changes to com.cepheid.training.order
-     Constraints:
-     - Fixed step sequence: 1) restate the goal, 2) list affected classes,
-       3) propose the smallest change set, 4) list tests to add/update, 5) show the diff
-     - Never change public method signatures without flagging it
-     - Never touch unrelated classes
-     Output: The complete agent definition file content
-     ```
-   - Example file content (`.github/agents/order-migration-agent.md`):
-     ```markdown
-     ---
-     name: order-migration-agent
-     description: Plans safe, incremental changes to com.cepheid.training.order
-     ---
 
-     You are a cautious Java maintainer of com.cepheid.training.order. For every
-     request, follow this fixed sequence and do not skip steps:
-     1. Restate the goal in one sentence.
-     2. List the exact classes affected.
-     3. Propose the smallest change set with a short rationale.
-     4. List the JUnit 5 tests to add or update.
-     5. Show the diff.
+### 1. Custom agent — beginner steps
 
-     Constraints: never change a public method signature without explicitly
-     flagging it; never touch classes outside com.cepheid.training.order.
-     ```
-   - **One use case:** In Copilot Chat, select this agent and ask:
-     ```
-     Plan support for partial order fulfillment when stock is insufficient.
-     ```
-     The agent should respond by walking through its five fixed steps instead of jumping straight to code, and flag if the plan would require changing a public signature.
-2. Skill - create `.github/skills/structured-prompting/SKILL.md`:
-   - **File location and format:** Project skills live in `.github/skills/<skill-name>/SKILL.md` (one directory per skill, lowercase, hyphenated). The file is Markdown with YAML frontmatter (`name`, `description`, optional `license`/`allowed-tools`) followed by the instructions Copilot should follow whenever the skill applies.
-   - Describe when it applies, the concrete conventions for writing short Role/Task/Constraints/Output prompts, and include one short example.
-   - Reference the skill explicitly in a Copilot Chat prompt and confirm the output follows its conventions.
-   - Sample prompt to draft it:
-     ```
-     Role: Prompt engineer documenting a reusable Copilot skill
-     Context: .github/skills/structured-prompting/SKILL.md does not exist yet
-     Task: Write SKILL.md describing when to use short Role/Task/Constraints/Output
-     prompts in this repo
-     Constraints: Include explicit trigger conditions, the prompt conventions, and
-     one worked example using the order package
-     Output: The complete SKILL.md file content
-     ```
-   - Example file content (`.github/skills/structured-prompting/SKILL.md`):
-     ```markdown
-     ---
-     name: structured-prompting
-     description: Guide for writing short Role/Task/Constraints/Output prompts for
-     the com.cepheid.training.order package. Use this whenever asked to plan or
-     describe a change to the order workflow.
-     ---
+A custom agent is a Markdown file with a `name`/`description` header and a plain-text persona/prompt body. Files use the `.agent.md` extension (VS Code and JetBrains) and live at `.github/agents/AGENT-NAME.agent.md`.
 
-     When planning or describing a change in this repository, write the prompt as:
-     - Role: who is asking (e.g. "Java maintainer of com.cepheid.training.order")
-     - Task: the single goal, one sentence
-     - Constraints: bullet list of hard limits (signatures, scope, tests)
-     - Output: the exact deliverable shape (plan, diff, explanation)
+1. In IntelliJ's Project view, right-click the `.github` folder > **New > Directory**, name it `agents` (skip if it already exists).
+2. Right-click the new `agents` folder > **New > File**, name it exactly `order-migration-agent.agent.md`.
+3. Paste the sample text below into the empty file and save (Ctrl+S).
+4. Sample prompt, if you'd rather have Copilot draft the file for you instead of typing it by hand:
+   ```
+   Role: Prompt engineer designing a GitHub Copilot custom agent
+   Context: .github/agents/order-migration-agent.agent.md does not exist yet
+   Task: Draft the agent definition for a persona that plans safe, incremental
+   changes to com.cepheid.training.order
+   Constraints:
+   - Fixed step sequence: 1) restate the goal, 2) list affected classes,
+     3) propose the smallest change set, 4) list tests to add/update, 5) show the diff
+   - Never change public method signatures without flagging it
+   - Never touch unrelated classes
+   Output: The complete agent definition file content
+   ```
+5. Sample text (paste as-is into `order-migration-agent.agent.md`):
+   ```markdown
+   ---
+   name: order-migration-agent
+   description: Plans safe, incremental changes to com.cepheid.training.order
+   ---
 
-     Example:
-     Role: Java maintainer of com.cepheid.training.order
-     Task: Add support for partial order fulfillment
-     Constraints: keep public signatures; add JUnit 5 tests; do not touch unrelated classes
-     Output: 3-step plan, no code yet
-     ```
-   - **One use case:** Sample prompt to invoke it afterward:
-     ```
-     Role: Java maintainer of com.cepheid.training.order
-     Task: Using the structured-prompting skill, plan the partial-fulfillment
-     change to OrderService
-     Constraints: Follow the skill's Role/Task/Constraints/Output convention
-     Output: A 3-step plan only, no code yet
-     ```
-     Confirm the response is itself formatted as Role/Task/Constraints/Output (or clearly follows those conventions) — that's the signal the skill was actually applied.
-3. Root `AGENTS.md` (optional) - summarize build/test commands and where the `.github/` customization files live, for cross-tool agent compatibility (Copilot CLI and other agentic tools read this file).
-   - Sample prompt to draft it:
-     ```
-     Role: Prompt engineer documenting cross-tool agent context
-     Context: Root AGENTS.md does not exist yet; this project builds with Maven
-     and JDK 17
-     Task: Generate AGENTS.md summarizing the build/test commands and where the
-     .github/instructions, .github/prompts, .github/agents, and .github/skills
-     customization files live
-     Constraints: Keep it under one page; reference exact file paths
-     Output: The complete AGENTS.md file content
-     ```
+   You are a cautious Java maintainer of com.cepheid.training.order. For every
+   request, follow this fixed sequence and do not skip steps:
+   1. Restate the goal in one sentence.
+   2. List the exact classes affected.
+   3. Propose the smallest change set with a short rationale.
+   4. List the JUnit 5 tests to add or update.
+   5. Show the diff.
+
+   Constraints: never change a public method signature without explicitly
+   flagging it; never touch classes outside com.cepheid.training.order.
+   ```
+6. **How to use it:** Open **GitHub Copilot Chat**, click the agent/mode picker (usually near the chat input box) and select **order-migration-agent** from the list. Then type your request as normal, for example:
+   ```
+   Plan support for partial order fulfillment when stock is insufficient.
+   ```
+   If your Copilot version doesn't show a picker, mention the agent by name at the start of the prompt (e.g. "Using the order-migration-agent persona, ...").
+7. **Expected result:** The reply follows the five fixed steps instead of jumping straight to code, and calls out if the plan would require changing a public signature.
+
+### 2. Skill — beginner steps
+
+A skill is a folder containing a `SKILL.md` file with a `name`/`description` header and instructions Copilot should follow whenever the skill topic comes up. Skills live at `.github/skills/<skill-name>/SKILL.md`.
+
+1. In IntelliJ's Project view, right-click the `.github` folder > **New > Directory**, name it `skills` (skip if it already exists).
+2. Inside `skills`, create another directory named `structured-prompting` (lowercase, hyphenated).
+3. Inside `structured-prompting`, create a file named exactly `SKILL.md`.
+4. Sample prompt, if you'd rather have Copilot draft the file for you:
+   ```
+   Role: Prompt engineer documenting a reusable Copilot skill
+   Context: .github/skills/structured-prompting/SKILL.md does not exist yet
+   Task: Write SKILL.md describing when to use short Role/Task/Constraints/Output
+   prompts in this repo
+   Constraints: Include explicit trigger conditions, the prompt conventions, and
+   one worked example using the order package
+   Output: The complete SKILL.md file content
+   ```
+5. Sample text (paste as-is into `SKILL.md`):
+   ```markdown
+   ---
+   name: structured-prompting
+   description: Guide for writing short Role/Task/Constraints/Output prompts for
+   the com.cepheid.training.order package. Use this whenever asked to plan or
+   describe a change to the order workflow.
+   ---
+
+   When planning or describing a change in this repository, write the prompt as:
+   - Role: who is asking (e.g. "Java maintainer of com.cepheid.training.order")
+   - Task: the single goal, one sentence
+   - Constraints: bullet list of hard limits (signatures, scope, tests)
+   - Output: the exact deliverable shape (plan, diff, explanation)
+
+   Example:
+   Role: Java maintainer of com.cepheid.training.order
+   Task: Add support for partial order fulfillment
+   Constraints: keep public signatures; add JUnit 5 tests; do not touch unrelated classes
+   Output: 3-step plan, no code yet
+   ```
+6. **How to use it:** Skills are picked up automatically — Copilot scans `.github/skills/` and applies a skill when your prompt matches its `description`. You don't select it manually; just ask a matching question in Copilot Chat, for example:
+   ```
+   Role: Java maintainer of com.cepheid.training.order
+   Task: Using the structured-prompting skill, plan the partial-fulfillment
+   change to OrderService
+   Constraints: Follow the skill's Role/Task/Constraints/Output convention
+   Output: A 3-step plan only, no code yet
+   ```
+7. **Expected result:** The response is itself formatted as Role/Task/Constraints/Output (or clearly follows those conventions) — that confirms the skill was actually applied, not just a coincidence.
+
+### 3. Root `AGENTS.md` (optional)
+
+Summarize build/test commands and where the `.github/` customization files live, for cross-tool agent compatibility (Copilot CLI and other agentic tools read this file).
+- Sample prompt to draft it:
+  ```
+  Role: Prompt engineer documenting cross-tool agent context
+  Context: Root AGENTS.md does not exist yet; this project builds with Maven
+  and JDK 17
+  Task: Generate AGENTS.md summarizing the build/test commands and where the
+  .github/instructions, .github/prompts, .github/agents, and .github/skills
+  customization files live
+  Constraints: Keep it under one page; reference exact file paths
+  Output: The complete AGENTS.md file content
+  ```
 
 **Enterprise tip:** Enterprise Copilot usage favors small, structured, reusable prompts over long free-form ones. State `Role / Task / Constraints / Output` in under ~5 lines - this keeps token usage low and responses focused, which matters when Copilot is used constantly across a team.
