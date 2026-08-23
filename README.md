@@ -28,8 +28,24 @@ The `com.cepheid.training.order` package contains `Customer`, `Product`, `Order`
 
 ## Hands-on Tasks
 1. Open the repository in IntelliJ and ask Copilot Chat to explain the overall architecture of the `order` package.
-2. Use the structured prompt in `.github/prompts/structured-migration-prompt.md` to ask Copilot for a plan to support partial order fulfillment.
-3. Use the structured prompt in `.github/prompts/structured-debugging-prompt.md` on the failing scenario you construct (an order with a zero-quantity line).
+2. Paste this migration prompt into IntelliJ's Copilot Chat window (also saved at `.github/prompts/structured-migration-prompt.md`):
+   ```
+   Context: com.cepheid.training.order package models a diagnostic order workflow.
+   Goal: add support for partial order fulfillment
+   Constraints:
+   - Keep existing public method signatures unless explicitly told otherwise.
+   - Update or add JUnit 5 tests for any new behavior.
+   - Do not touch unrelated classes.
+   Ask: Propose the smallest change set with a short rationale, then show the diff.
+   ```
+3. Paste this debugging prompt on the failing scenario you construct (an order with a zero-quantity line), also saved at `.github/prompts/structured-debugging-prompt.md`:
+   ```
+   Context: <paste the failing test name and stack trace>
+   Observed behavior: <what actually happens>
+   Expected behavior: <what should happen>
+   Ask: Identify the root cause referencing exact file/line, explain why it happens,
+   then propose the minimal fix and the test that would catch a regression.
+   ```
 4. Create or refine `.github/instructions/copilot-instructions.md` with one additional project-specific rule you find useful.
 5. Re-run one of your earlier prompts after adding the instructions file and compare Copilot's response quality.
 6. Compare an unstructured prompt ("fix the order stuff") with a structured prompt (using the template) and note the difference in usefulness.
