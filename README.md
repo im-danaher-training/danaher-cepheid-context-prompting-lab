@@ -45,6 +45,14 @@ The `com.cepheid.training.order` package contains `Customer`, `Product`, `Order`
    Constraints: Read-only explanation; do not propose or make code changes
    Output: A short narrative plus a one-line responsibility summary per class
    ```
+   Example of the kind of answer this prompt should produce:
+   ```
+   - Customer / Product: plain data holders for who is ordering and what is available.
+   - Order / OrderLine: the order aggregate and its line items (product + quantity).
+   - ValidationService: decides if an Order is valid (positive quantities, stock available).
+   - OrderRepository: persists Orders.
+   - OrderService: orchestrates submit() — validates, sets status, then saves.
+   ```
 2. Paste this migration prompt into IntelliJ's Copilot Chat window (also saved at `.github/prompts/structured-migration-prompt.md`):
    ```
    Role: Java maintainer of com.cepheid.training.order
@@ -68,6 +76,20 @@ The `com.cepheid.training.order` package contains `Customer`, `Product`, `Order`
    Output: Root cause explanation, minimal fix, and the regression test that would
    catch it
    ```
+   Filled-in example (copy, adapt, and paste this if you don't want to construct your own failing test):
+   ```
+   Role: Java maintainer debugging com.cepheid.training.order
+   Context: rejectsZeroQuantityLine (OrderServiceTest) — order = new Order("ORD-3", customer,
+   List.of(new OrderLine(product, 0))); assertEquals(OrderStatus.REJECTED, result.getStatus());
+   Observed behavior: The order is unexpectedly REJECTED even though the product has stock.
+   Expected behavior: A zero-quantity line should be rejected, but I want to confirm this is
+   intentional and not a validation bug hiding a different issue.
+   Task: Identify the root cause, referencing the exact file and line, and explain
+   why it happens
+   Constraints: Propose the minimal fix only; do not refactor unrelated code
+   Output: Root cause explanation, minimal fix, and the regression test that would
+   catch it
+   ```
 4. Create or refine `.github/instructions/copilot-instructions.md` with one additional project-specific rule you find useful. Sample prompt to draft the rule:
    ```
    Role: Codebase maintainer authoring Copilot guardrails
@@ -77,6 +99,11 @@ The `com.cepheid.training.order` package contains `Customer`, `Product`, `Order`
    just made in this codebase
    Constraints: One rule only; must be concrete and enforceable, not generic advice
    Output: A single markdown bullet ready to paste into the instructions file
+   ```
+   Example of a good rule this prompt might produce:
+   ```
+   - Never mark an OrderLine quantity check as valid without also checking it against
+     Product.getAvailableStock(); the two conditions must always be evaluated together.
    ```
 5. Re-run one of your earlier prompts after adding the instructions file and compare Copilot's response quality.
 6. Compare an unstructured prompt and a structured prompt, and note the difference in usefulness. Sample unstructured prompt (deliberately vague, for contrast only — this is the anti-pattern, not the style to copy):
