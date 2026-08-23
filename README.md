@@ -35,7 +35,11 @@ CepheidDx is modernizing its diagnostic order-management workflow. You are a dev
 The `com.cepheid.training.order` package contains `Customer`, `Product`, `Order`, `OrderLine`, `ValidationService`, `OrderRepository`, and `OrderService`. Some requirements in `ValidationService` and `OrderService` are intentionally left ambiguous in comments.
 
 ## Hands-on Tasks
-1. Open the repository in IntelliJ and ask Copilot Chat to explain the overall architecture of the `order` package.
+1. Open the repository in IntelliJ and ask Copilot Chat to explain the overall architecture of the `order` package. Sample prompt:
+   ```
+   Explain the overall architecture of the com.cepheid.training.order package:
+   list each class, its responsibility, and how they collaborate to process an order.
+   ```
 2. Paste this migration prompt into IntelliJ's Copilot Chat window (also saved at `.github/prompts/structured-migration-prompt.md`):
    ```
    Context: com.cepheid.training.order package models a diagnostic order workflow.
@@ -54,9 +58,17 @@ The `com.cepheid.training.order` package contains `Customer`, `Product`, `Order`
    Ask: Identify the root cause referencing exact file/line, explain why it happens,
    then propose the minimal fix and the test that would catch a regression.
    ```
-4. Create or refine `.github/instructions/copilot-instructions.md` with one additional project-specific rule you find useful.
+4. Create or refine `.github/instructions/copilot-instructions.md` with one additional project-specific rule you find useful. Sample prompt to draft the rule:
+   ```
+   Suggest one additional project-specific rule for .github/instructions/copilot-instructions.md
+   that would help Copilot avoid a mistake you just saw it make in this codebase.
+   ```
 5. Re-run one of your earlier prompts after adding the instructions file and compare Copilot's response quality.
-6. Compare an unstructured prompt ("fix the order stuff") with a structured prompt (using the template) and note the difference in usefulness.
+6. Compare an unstructured prompt and a structured prompt, and note the difference in usefulness. Sample unstructured prompt (deliberately vague, for contrast only):
+   ```
+   fix the order stuff
+   ```
+   Then re-ask using the structured migration prompt template from step 2 and compare the two responses.
 
 ## Validation
 Run from the IntelliJ **Terminal** tab (Alt+F12) or the Maven tool window:
@@ -98,9 +110,37 @@ Output: 3-step plan, no code yet
    - Persona: a persona that plans safe, incremental changes to the order package.
    - Before writing the file, design its fixed step sequence and any constraints on paper first.
    - Test it on one small, low-risk task before relying on it for the full lab task.
+   - Sample prompt to draft it:
+     ```
+     Draft an agent definition for .github/agents/order-migration-agent.agent.md.
+     Persona: a cautious Java maintainer of com.cepheid.training.order who plans
+     safe, incremental changes.
+     Fixed steps: 1) restate the goal, 2) list affected classes, 3) propose the
+     smallest change set, 4) list the tests to add/update, 5) show the diff.
+     Constraints: never change public method signatures without saying so; never
+     touch unrelated classes.
+     ```
 2. Skill - create `.github/skills/structured-prompting/SKILL.md`:
    - Describe when it applies, the concrete conventions for writing short Role/Task/Constraints/Output prompts, and include one short example.
    - Reference the skill explicitly in a Copilot Chat prompt and confirm the output follows its conventions.
+   - Sample prompt to draft it:
+     ```
+     Write a SKILL.md for .github/skills/structured-prompting/SKILL.md that
+     describes when to use short Role/Task/Constraints/Output prompts in this
+     repo, the conventions to follow, and includes one worked example using the
+     order package.
+     ```
+   - Sample prompt to invoke it afterward:
+     ```
+     Using the structured-prompting skill, plan the partial-fulfillment change
+     to OrderService.
+     ```
 3. Root `AGENTS.md` (optional) - summarize build/test commands and where the `.github/` customization files live, for cross-tool agent compatibility (Copilot CLI and other agentic tools read this file).
+   - Sample prompt to draft it:
+     ```
+     Generate a root AGENTS.md summarizing how to build and test this project
+     (Maven/JDK 17) and where the .github/instructions, .github/prompts,
+     .github/agents, and .github/skills customization files live.
+     ```
 
 **Enterprise tip:** Enterprise Copilot usage favors small, structured, reusable prompts over long free-form ones. State `Role / Task / Constraints / Output` in under ~5 lines - this keeps token usage low and responses focused, which matters when Copilot is used constantly across a team.
