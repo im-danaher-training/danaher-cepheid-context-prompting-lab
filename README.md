@@ -28,27 +28,6 @@ $env:PATH = "$env:JAVA_HOME\bin;$env:PATH"
 4. Open the **Maven** tool window (right sidebar) to run `test`/`verify` goals.
 5. Open **GitHub Copilot Chat** from the right tool bar, keep the relevant file active so Copilot has context.
 
-## Model and Task Selection Guide
-Copilot Chat lets you pick which AI model answers your prompt, using the model picker in the chat
-input box. Different models trade off speed, reasoning depth, and cost — choose based on the task
-at hand, not out of habit. If you're unsure, pick **Auto** and let Copilot select an appropriate
-model for the task's complexity.
-
-| Task in this lab                                        | What it needs                                    | Model category to pick                          |
-|-----------------------------------------------------------|---------------------------------------------------|----------------------------------------------------|
-| Task 1: Explain the `order` package architecture          | Fast, accurate summarization of existing code      | Fast, general-purpose model                         |
-| Task 2: Migration prompt (partial fulfillment plan)        | Multi-step reasoning across several collaborating classes | Deep-reasoning model                          |
-| Task 3: Debugging prompt (root cause analysis)             | Careful, step-by-step analysis of a stack trace    | Deep-reasoning model                                |
-| Task 4: Draft one Copilot instructions rule                | Short, low-complexity generation                   | Fast, general-purpose model                         |
-| Custom agent / skill authoring                              | Structured document generation, moderate reasoning  | General-purpose or deep-reasoning model, depending on scope |
-| Optional Challenge: implement partial fulfillment end to end | Autonomous, multi-file, multi-step coding          | Agentic/coding-focused model                        |
-
-Guidance:
-- Use a faster, lighter model for quick, well-scoped asks (one class, one method) — it's cheaper and lower latency.
-- Switch to a deeper-reasoning model for anything spanning multiple classes, requiring root-cause analysis, or planning a non-trivial change.
-- Use an agentic/coding-focused model when you want Copilot to autonomously make and validate multi-file changes (for example, the Optional Challenge), rather than just proposing a plan.
-- Model names and their strengths change frequently. Check the model picker in your IDE and GitHub's [AI model comparison](https://docs.github.com/en/copilot/reference/ai-models/model-comparison) doc for the current recommended model per task before your session.
-
 ## Scenario
 CepheidDx is modernizing its diagnostic order-management workflow. You are a developer joining the project mid-stream and must ramp up quickly using GitHub Copilot in IntelliJ.
 
@@ -241,3 +220,37 @@ Summarize build/test commands and where the `.github/` customization files live,
   ```
 
 **Enterprise tip:** Enterprise Copilot usage favors small, structured, reusable prompts over long free-form ones. State `Role / Task / Constraints / Output` in under ~5 lines - this keeps token usage low and responses focused, which matters when Copilot is used constantly across a team.
+
+## Practical Model-Selection Guide
+Copilot Chat lets you choose the model that answers your prompt from the model picker in the chat
+input box. Use the table below to match the task to the model family that fits it best.
+
+| Task | Recommended model | Why |
+|---|---|---|
+| Simple code completion | GPT-5 mini / Haiku 4.5 | Fast and inexpensive |
+| Boilerplate / CRUD | GPT-5 mini / Haiku 4.5 | Doesn't need deep reasoning |
+| Documentation / README | Haiku 4.5 / GPT-5 mini | Fast, straightforward |
+| Unit-test generation | Haiku 4.5 / Sonnet 4.6 | Good balance of speed and reasoning |
+| Bug fixing | Sonnet 4.6 / GPT-5.4 | Better investigation and reasoning |
+| Complex debugging | GPT-5.4 / GPT-5.6 Sol | Strong multi-step reasoning |
+| Large refactoring | Sonnet 4.6 / GPT-5.6 Sol | Better multi-file/context understanding |
+| Architecture/design | GPT-5.6 Sol / GPT-5.4 | Deep technical reasoning |
+| Legacy modernization | Sonnet 4.6 / GPT-5.6 Sol | Strong cross-file and cross-language reasoning |
+| Agentic implementation | GPT-5.3-Codex / Sonnet 4.6 | Designed for agentic software development |
+| Large codebase analysis | GPT-5.6 Sol / Kimi K3 | Long-context, complex analysis |
+| Screenshot/UI analysis | GPT-5 mini / Sonnet 4.6 / Gemini 3.1 Pro | Multimodal capability |
+| Quick CLI operations | Haiku 4.5 / Flash models | Low latency |
+| Code-focused CLI work | GPT-5.3-Codex | Optimized for coding |
+| Very difficult technical problem | GPT-5.6 Sol / highest reasoning model available | Maximum reasoning capability |
+
+Guidance:
+- Use a lighter model for short, well-scoped asks such as one method, one file, or routine copy.
+- Switch to a deeper-reasoning model for tasks that span multiple classes, need root-cause analysis,
+  or require architecture-level thinking.
+- Use an agentic/coding-focused model when you want Copilot to work more autonomously across files.
+- GitHub currently groups GPT-5.3-Codex for agentic software development, GPT-5.4 for deep
+  reasoning/debugging, Sonnet 4.6 for complex coding/agent tasks, and lighter models such as
+  Haiku 4.5 for everyday coding.
+- Model names and strengths change over time. Check the model picker in your IDE and GitHub's
+  [AI model comparison](https://docs.github.com/en/copilot/reference/ai-models/model-comparison)
+  doc before your session.
