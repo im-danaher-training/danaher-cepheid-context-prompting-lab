@@ -50,3 +50,26 @@ You can articulate the architecture, produce a migration plan using structured p
 
 ## Optional Challenge
 Extend `OrderService` to support partial fulfillment when stock is insufficient, with a matching JUnit 5 test, using only structured prompts.
+
+## Copilot Customization Guide
+
+Enterprise teams reuse Copilot customization instead of re-typing context every time.
+
+**Already provided:**
+- `.github/instructions/copilot-instructions.md` â€” always-on project rules Copilot applies automatically.
+- `.github/prompts/structured-migration-prompt.md` and `structured-debugging-prompt.md` â€” reusable templates.
+
+**Quick prompt (token-efficient migration ask):**
+```
+Role: Java maintainer of com.cepheid.training.order
+Task: Plan support for partial order fulfillment
+Constraints: keep public signatures; add JUnit 5 tests
+Output: 3-step plan, no code yet
+```
+
+**Optional stretch tasks (build these yourself â€” not provided):**
+- Custom agent: create `.github/agents/order-migration-agent.agent.md` defining a persona that plans safe, incremental changes to the order package.
+- Skill: create `.github/skills/structured-prompting/SKILL.md` capturing a reusable checklist for writing short Role/Task/Constraints/Output prompts.
+- `AGENTS.md`: optionally add a root-level file summarizing repo conventions for cross-tool agent compatibility (Copilot CLI and other agentic tools read this file).
+
+**Enterprise tip:** Enterprise Copilot usage favors small, structured, reusable prompts over long free-form ones. State `Role / Task / Constraints / Output` in under ~5 lines â€” this keeps token usage low and responses focused, which matters when Copilot is used constantly across a team.
