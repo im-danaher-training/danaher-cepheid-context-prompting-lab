@@ -28,6 +28,27 @@ $env:PATH = "$env:JAVA_HOME\bin;$env:PATH"
 4. Open the **Maven** tool window (right sidebar) to run `test`/`verify` goals.
 5. Open **GitHub Copilot Chat** from the right tool bar, keep the relevant file active so Copilot has context.
 
+## Model and Task Selection Guide
+Copilot Chat lets you pick which AI model answers your prompt, using the model picker in the chat
+input box. Different models trade off speed, reasoning depth, and cost — choose based on the task
+at hand, not out of habit. If you're unsure, pick **Auto** and let Copilot select an appropriate
+model for the task's complexity.
+
+| Task in this lab                                        | What it needs                                    | Model category to pick                          |
+|-----------------------------------------------------------|---------------------------------------------------|----------------------------------------------------|
+| Task 1: Explain the `order` package architecture          | Fast, accurate summarization of existing code      | Fast, general-purpose model                         |
+| Task 2: Migration prompt (partial fulfillment plan)        | Multi-step reasoning across several collaborating classes | Deep-reasoning model                          |
+| Task 3: Debugging prompt (root cause analysis)             | Careful, step-by-step analysis of a stack trace    | Deep-reasoning model                                |
+| Task 4: Draft one Copilot instructions rule                | Short, low-complexity generation                   | Fast, general-purpose model                         |
+| Custom agent / skill authoring                              | Structured document generation, moderate reasoning  | General-purpose or deep-reasoning model, depending on scope |
+| Optional Challenge: implement partial fulfillment end to end | Autonomous, multi-file, multi-step coding          | Agentic/coding-focused model                        |
+
+Guidance:
+- Use a faster, lighter model for quick, well-scoped asks (one class, one method) — it's cheaper and lower latency.
+- Switch to a deeper-reasoning model for anything spanning multiple classes, requiring root-cause analysis, or planning a non-trivial change.
+- Use an agentic/coding-focused model when you want Copilot to autonomously make and validate multi-file changes (for example, the Optional Challenge), rather than just proposing a plan.
+- Model names and their strengths change frequently. Check the model picker in your IDE and GitHub's [AI model comparison](https://docs.github.com/en/copilot/reference/ai-models/model-comparison) doc for the current recommended model per task before your session.
+
 ## Scenario
 CepheidDx is modernizing its diagnostic order-management workflow. You are a developer joining the project mid-stream and must ramp up quickly using GitHub Copilot in IntelliJ.
 
