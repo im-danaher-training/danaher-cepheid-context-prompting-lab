@@ -84,13 +84,13 @@ Output: 3-step plan, no code yet
 ```
 
 **Step-by-step: create these yourself (not provided)**
-1. Custom agent â€” create `.github/agents/order-migration-agent.agent.md`:
+1. Custom agent - create `.github/agents/order-migration-agent.agent.md`:
    - Persona: a persona that plans safe, incremental changes to the order package.
    - Before writing the file, design its fixed step sequence and any constraints on paper first.
    - Test it on one small, low-risk task before relying on it for the full lab task.
-2. Skill â€” create `.github/skills/structured-prompting/SKILL.md`:
+2. Skill - create `.github/skills/structured-prompting/SKILL.md`:
    - Describe when it applies, the concrete conventions for writing short Role/Task/Constraints/Output prompts, and include one short example.
    - Reference the skill explicitly in a Copilot Chat prompt and confirm the output follows its conventions.
-3. Root `AGENTS.md` (optional) â€” summarize build/test commands and where the `.github/` customization files live, for cross-tool agent compatibility (Copilot CLI and other agentic tools read this file).
+3. Root `AGENTS.md` (optional) - summarize build/test commands and where the `.github/` customization files live, for cross-tool agent compatibility (Copilot CLI and other agentic tools read this file).
 
 **Enterprise tip:** Enterprise Copilot usage favors small, structured, reusable prompts over long free-form ones. State `Role / Task / Constraints / Output` in under ~5 lines - this keeps token usage low and responses focused, which matters when Copilot is used constantly across a team.
