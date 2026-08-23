@@ -17,7 +17,7 @@ Learn to use GitHub Copilot inside **IntelliJ IDEA** to complete a realistic Dan
 1. Open IntelliJ IDEA and choose **File > Open**, then select this repository folder.
 2. Trust the project when prompted and let IntelliJ auto-import the Maven project.
 3. Confirm the Project SDK is Java 17 in **File > Project Structure > Project**.
-4. Open the **Maven** tool window (right sidebar) to run 	est/erify goals.
+4. Open the **Maven** tool window (right sidebar) to run `test`/`verify` goals.
 5. Open **GitHub Copilot Chat** from the right tool bar, keep the relevant file active so Copilot has context.
 
 ## Scenario
