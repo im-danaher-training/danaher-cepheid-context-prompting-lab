@@ -155,8 +155,7 @@ A custom agent is a Markdown file with a `name`/`description` header and a plain
 
 1. In IntelliJ's Project view, right-click the `.github` folder > **New > Directory**, name it `agents` (skip if it already exists).
 2. Right-click the new `agents` folder > **New > File**, name it exactly `order-migration-agent.agent.md`.
-3. Paste the sample text below into the empty file and save (Ctrl+S).
-4. Sample prompt, if you'd rather have Copilot draft the file for you instead of typing it by hand:
+3. Use the sample prompt below in Copilot Chat to have it draft the file's content — review the output, then paste it into the empty file yourself and save (Ctrl+S). Don't just copy a finished file; the point of this exercise is to draft, review, and adjust the persona and fixed steps yourself.
    ```
    Role: Prompt engineer designing a GitHub Copilot custom agent
    Context: .github/agents/order-migration-agent.agent.md does not exist yet
@@ -169,30 +168,13 @@ A custom agent is a Markdown file with a `name`/`description` header and a plain
    - Never touch unrelated classes
    Output: The complete agent definition file content
    ```
-5. Sample text (paste as-is into `order-migration-agent.agent.md`):
-   ```markdown
-   ---
-   name: order-migration-agent
-   description: Plans safe, incremental changes to com.cepheid.training.order
-   ---
-
-   You are a cautious Java maintainer of com.cepheid.training.order. For every
-   request, follow this fixed sequence and do not skip steps:
-   1. Restate the goal in one sentence.
-   2. List the exact classes affected.
-   3. Propose the smallest change set with a short rationale.
-   4. List the JUnit 5 tests to add or update.
-   5. Show the diff.
-
-   Constraints: never change a public method signature without explicitly
-   flagging it; never touch classes outside com.cepheid.training.order.
-   ```
-6. **How to use it:** Open **GitHub Copilot Chat**, click the agent/mode picker (usually near the chat input box) and select **order-migration-agent** from the list. Then type your request as normal, for example:
+4. The file needs a YAML frontmatter block with `name` and `description`, followed by a plain-text prompt body describing the persona, its fixed step sequence, and its constraints — verify Copilot's draft includes all three before saving.
+5. **How to use it:** Open **GitHub Copilot Chat**, click the agent/mode picker (usually near the chat input box) and select **order-migration-agent** from the list. Then type your request as normal, for example:
    ```
    Plan support for partial order fulfillment when stock is insufficient.
    ```
    If your Copilot version doesn't show a picker, mention the agent by name at the start of the prompt (e.g. "Using the order-migration-agent persona, ...").
-7. **Expected result:** The reply follows the five fixed steps instead of jumping straight to code, and calls out if the plan would require changing a public signature.
+6. **Expected result:** The reply follows the five fixed steps instead of jumping straight to code, and calls out if the plan would require changing a public signature.
 
 ### 2. Skill — beginner steps
 
@@ -201,7 +183,7 @@ A skill is a folder containing a `SKILL.md` file with a `name`/`description` hea
 1. In IntelliJ's Project view, right-click the `.github` folder > **New > Directory**, name it `skills` (skip if it already exists).
 2. Inside `skills`, create another directory named `structured-prompting` (lowercase, hyphenated).
 3. Inside `structured-prompting`, create a file named exactly `SKILL.md`.
-4. Sample prompt, if you'd rather have Copilot draft the file for you:
+4. Use the sample prompt below in Copilot Chat to have it draft the file's content — review the output, then paste it into the empty file yourself and save. Adjust the wording so it genuinely reflects the Role/Task/Constraints/Output convention you want enforced, rather than accepting the first draft verbatim.
    ```
    Role: Prompt engineer documenting a reusable Copilot skill
    Context: .github/skills/structured-prompting/SKILL.md does not exist yet
@@ -211,27 +193,7 @@ A skill is a folder containing a `SKILL.md` file with a `name`/`description` hea
    one worked example using the order package
    Output: The complete SKILL.md file content
    ```
-5. Sample text (paste as-is into `SKILL.md`):
-   ```markdown
-   ---
-   name: structured-prompting
-   description: Guide for writing short Role/Task/Constraints/Output prompts for
-   the com.cepheid.training.order package. Use this whenever asked to plan or
-   describe a change to the order workflow.
-   ---
-
-   When planning or describing a change in this repository, write the prompt as:
-   - Role: who is asking (e.g. "Java maintainer of com.cepheid.training.order")
-   - Task: the single goal, one sentence
-   - Constraints: bullet list of hard limits (signatures, scope, tests)
-   - Output: the exact deliverable shape (plan, diff, explanation)
-
-   Example:
-   Role: Java maintainer of com.cepheid.training.order
-   Task: Add support for partial order fulfillment
-   Constraints: keep public signatures; add JUnit 5 tests; do not touch unrelated classes
-   Output: 3-step plan, no code yet
-   ```
+5. The file needs a YAML frontmatter block with `name` and `description` (the `description` is what Copilot matches against your prompts to decide when to apply the skill), followed by the concrete conventions and one worked example — verify Copilot's draft includes all three before saving.
 6. **How to use it:** Skills are picked up automatically — Copilot scans `.github/skills/` and applies a skill when your prompt matches its `description`. You don't select it manually; just ask a matching question in Copilot Chat, for example:
    ```
    Role: Java maintainer of com.cepheid.training.order
