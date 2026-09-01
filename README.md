@@ -138,6 +138,9 @@ Enterprise teams reuse Copilot customization instead of re-typing context every 
 **Already provided:**
 - `.github/instructions/copilot-instructions.md` - always-on project rules Copilot applies automatically.
 - `.github/prompts/structured-migration-prompt.md` and `structured-debugging-prompt.md` - reusable templates.
+- `mcp-server/` - a working custom MCP server that gives Copilot a structured, live view of this
+  lab's task plan. See [`mcp-server/README.md`](mcp-server/README.md) for setup, and section 3
+  below for how it fits into the customization patterns you're learning.
 
 **Quick prompt (token-efficient migration ask):**
 ```
@@ -204,7 +207,29 @@ A skill is a folder containing a `SKILL.md` file with a `name`/`description` hea
    ```
 7. **Expected result:** The response is itself formatted as Role/Task/Constraints/Output (or clearly follows those conventions) — that confirms the skill was actually applied, not just a coincidence.
 
-### 3. Root `AGENTS.md` (optional)
+### 3. Custom MCP Server — plan view (already provided)
+
+An [MCP server](https://modelcontextprotocol.io/) is a small standalone program that gives Copilot
+new *tools* to call — as opposed to agents/skills, which shape *how* Copilot responds using plain
+text. This lab ships a ready-to-run example at [`mcp-server/`](mcp-server/README.md) that exposes a
+**plan view**: it parses the numbered "Hands-on Tasks" list above straight out of this README and
+lets Copilot query and update your progress through two tools, `view_plan` and `update_plan_step`.
+
+1. Read [`mcp-server/README.md`](mcp-server/README.md) for the full setup steps.
+2. Install its dependencies: `cd mcp-server && npm install`.
+3. Register it with Copilot in your IDE — VS Code via `.vscode/mcp.json`, or IntelliJ via the
+   Copilot plugin's MCP servers settings (both documented in `mcp-server/README.md`).
+4. **How to use it:** with the server enabled in Agent mode, ask Copilot Chat:
+   ```
+   Use the plan-view MCP server to show me the lab plan and mark step 1 as done.
+   ```
+5. **Expected result:** Copilot calls the `view_plan` tool and returns the six numbered steps with
+   their status, then calls `update_plan_step` to mark step 1 `done` — proof it's using the tool
+   rather than guessing from the README text alone.
+6. **Try it yourself:** once you're comfortable with the provided server, read the "Extending it"
+   section of `mcp-server/README.md` and add one small tool of your own.
+
+### 4. Root `AGENTS.md` (optional)
 
 Summarize build/test commands and where the `.github/` customization files live, for cross-tool agent compatibility (Copilot CLI and other agentic tools read this file).
 - Sample prompt to draft it:
